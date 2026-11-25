@@ -1,0 +1,173 @@
+/* DisplayScale demo — one palette shared by the forms and the HTML web areas.
+   Visual properties live here only; the form JSON keeps structure (styles,
+   events, data sources, sizes). */
+
+.appTitle {
+	stroke: #1D1D1F;
+	fontSize: 26px;
+	fontWeight: bold;
+}
+
+.appSubtitle {
+	stroke: #6E6E73;
+	fontSize: 13px;
+}
+
+.badge {
+	stroke: #6E6E73;
+	fontSize: 12px;
+}
+
+.section {
+	stroke: #6E6E73;
+	fontSize: 11px;
+	fontWeight: bold;
+}
+
+.caption {
+	stroke: #1D1D1F;
+	fontSize: 13px;
+	fontWeight: bold;
+}
+
+.muted {
+	stroke: #6E6E73;
+	fontSize: 12px;
+}
+
+.statCaption {
+	stroke: #6E6E73;
+	fontSize: 10px;
+	fontWeight: bold;
+}
+
+.statValue {
+	stroke: #1D1D1F;
+	fontSize: 14px;
+	fontWeight: bold;
+}
+
+.bigNumber {
+	stroke: #0A84FF;
+	fontSize: 38px;
+	fontWeight: bold;
+}
+
+.hugeNumber {
+	stroke: #0A84FF;
+	fontSize: 44px;
+	fontWeight: bold;
+}
+
+.note {
+	stroke: #6E6E73;
+	fontSize: 12px;
+}
+
+.status {
+	stroke: #6E6E73;
+	fontSize: 12px;
+}
+
+.toast {
+	stroke: #0A84FF;
+	fontSize: 12px;
+	fontWeight: bold;
+}
+
+.formulaLine {
+	stroke: #1D1D1F;
+	fontFamily: Menlo;
+	fontSize: 13px;
+}
+
+.rule {
+	fill: #D1D1D6;
+}
+
+.card {
+	fill: #FFFFFF;
+	stroke: #E5E5EA;
+	borderRadius: 12;
+}
+
+.surface {
+	fill: #FFFFFF;
+	stroke: #E5E5EA;
+	borderRadius: 10;
+}
+
+.console {
+	fill: #FFFFFF;
+	stroke: #48484A;
+	fontFamily: Menlo;
+	fontSize: 11px;
+}
+
+.field {
+	fill: #FFFFFF;
+	stroke: #1D1D1F;
+	fontSize: 13px;
+	textAlign: right;
+}
+
+.list {
+	fill: #FFFFFF;
+	stroke: #1D1D1F;
+	fontSize: 13px;
+	verticalAlign: middle;
+}
+
+.action {
+	stroke: #1D1D1F;
+	fontSize: 13px;
+	textAlign: center;
+}
+
+@media (prefers-color-scheme: dark) {
+	.appTitle,
+	.caption,
+	.statValue,
+	.formulaLine {
+		stroke: #F2F2F7;
+	}
+
+	.appSubtitle,
+	.badge,
+	.section,
+	.muted,
+	.statCaption,
+	.note,
+	.status {
+		stroke: #98989D;
+	}
+
+	.rule {
+		fill: #3A3A3C;
+	}
+
+	.card,
+	.surface {
+		fill: #2C2C2E;
+		stroke: #3A3A3C;
+	}
+
+	.console {
+		fill: #1C1C1E;
+		stroke: #D1D1D6;
+	}
+
+	.field {
+		fill: #2C2C2E;
+		stroke: #F2F2F7;
+	}
+
+	.list {
+		fill: #1C1C1E;
+		stroke: #F2F2F7;
+	}
+
+	.action {
+		stroke: #F2F2F7;
+	}
+}

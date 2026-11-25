@@ -1,0 +1,395 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "fixed",
+	"windowSizingY": "fixed",
+	"windowMinWidth": 1080,
+	"windowMinHeight": 760,
+	"windowMaxWidth": 1080,
+	"windowMaxHeight": 760,
+	"width": 1080,
+	"height": 760,
+	"events": [
+		"onLoad",
+		"onClick",
+		"onUnload"
+	],
+	"windowTitle": "DisplayScale — Monitor Board",
+	"destination": "detailScreen",
+	"method": "method.4dm",
+	"pages": [
+		{
+			"objects": {
+				"canvas": {
+					"type": "rectangle",
+					"left": 0,
+					"top": 0,
+					"width": 1080,
+					"height": 760,
+					"fill": "automatic",
+					"stroke": "transparent"
+				}
+			}
+		},
+		{
+			"objects": {
+				"title": {
+					"type": "text",
+					"left": 24,
+					"top": 16,
+					"width": 360,
+					"height": 34,
+					"text": "DisplayScale",
+					"class": "appTitle"
+				},
+				"subtitle": {
+					"type": "text",
+					"left": 24,
+					"top": 54,
+					"width": 620,
+					"height": 20,
+					"text": "Effective display scaling, read live from the operating system",
+					"class": "appSubtitle"
+				},
+				"platformBadge": {
+					"type": "text",
+					"left": 640,
+					"top": 22,
+					"width": 416,
+					"height": 24,
+					"text": "querying…",
+					"class": "badge",
+					"textAlign": "right"
+				},
+				"rule": {
+					"type": "rectangle",
+					"left": 24,
+					"top": 88,
+					"width": 1032,
+					"height": 1,
+					"stroke": "transparent",
+					"class": "rule"
+				},
+				"monitorsTitle": {
+					"type": "text",
+					"left": 24,
+					"top": 104,
+					"width": 380,
+					"height": 20,
+					"text": "Monitors",
+					"class": "section"
+				},
+				"monitorList": {
+					"type": "listbox",
+					"left": 24,
+					"top": 128,
+					"width": 380,
+					"height": 208,
+					"dataSource": "Form.rows",
+					"currentItemSource": "Form.selectedRow",
+					"selectionMode": "single",
+					"resizingMode": "legacy",
+					"rowHeight": "30px",
+					"headerHeight": "26px",
+					"borderStyle": "solid",
+					"class": "list",
+					"scrollbarVertical": "automatic",
+					"alternateFill": "automaticAlternate",
+					"events": [
+						"onClick"
+					],
+					"columns": [
+						{
+							"name": "Device",
+							"dataSource": "This.deviceLabel",
+							"width": 190,
+							"truncateMode": "none",
+							"textAlign": "left",
+							"verticalAlign": "middle"
+						},
+						{
+							"name": "Scale",
+							"dataSource": "This.scaleLabel",
+							"width": 70,
+							"truncateMode": "none",
+							"textAlign": "right",
+							"verticalAlign": "middle"
+						},
+						{
+							"name": "Size",
+							"dataSource": "This.sizeLabel",
+							"width": 110,
+							"truncateMode": "none",
+							"textAlign": "right",
+							"verticalAlign": "middle"
+						}
+					]
+				},
+				"btnRefresh": {
+					"type": "button",
+					"left": 24,
+					"top": 350,
+					"width": 110,
+					"height": 32,
+					"text": "Refresh",
+					"style": "roundedBevel",
+					"class": "action",
+					"events": [
+						"onClick"
+					]
+				},
+				"btnCopy": {
+					"type": "button",
+					"left": 142,
+					"top": 350,
+					"width": 110,
+					"height": 32,
+					"text": "Copy JSON",
+					"style": "roundedBevel",
+					"class": "action",
+					"events": [
+						"onClick"
+					]
+				},
+				"btnLab": {
+					"type": "button",
+					"left": 260,
+					"top": 350,
+					"width": 144,
+					"height": 32,
+					"text": "Open Scale Lab",
+					"style": "roundedBevel",
+					"class": "action",
+					"events": [
+						"onClick"
+					]
+				},
+				"logTitle": {
+					"type": "text",
+					"left": 24,
+					"top": 396,
+					"width": 380,
+					"height": 20,
+					"text": "API log",
+					"class": "section"
+				},
+				"logView": {
+					"type": "input",
+					"left": 24,
+					"top": 420,
+					"width": 380,
+					"height": 132,
+					"dataSource": "Form.logText",
+					"class": "console",
+					"multiline": "yes",
+					"wordwrap": "normal",
+					"scrollbarVertical": "automatic",
+					"events": [
+						"onDataChange"
+					],
+					"enterable": false,
+					"focusable": true,
+					"hideFocusRing": true,
+					"borderStyle": "none"
+				},
+				"statusText": {
+					"type": "text",
+					"left": 24,
+					"top": 558,
+					"width": 380,
+					"height": 20,
+					"text": "Waiting…",
+					"class": "status"
+				},
+				"mapTitle": {
+					"type": "text",
+					"left": 428,
+					"top": 104,
+					"width": 628,
+					"height": 20,
+					"text": "Desktop layout",
+					"class": "section"
+				},
+				"Map": {
+					"type": "webArea",
+					"left": 428,
+					"top": 128,
+					"width": 628,
+					"height": 248,
+					"class": "surface",
+					"borderStyle": "solid"
+				},
+				"detailCard": {
+					"type": "rectangle",
+					"left": 428,
+					"top": 388,
+					"width": 628,
+					"height": 176,
+					"class": "card",
+					"stroke": "transparent"
+				},
+				"detailScale": {
+					"type": "text",
+					"left": 444,
+					"top": 398,
+					"width": 150,
+					"height": 50,
+					"text": "—",
+					"class": "bigNumber"
+				},
+				"detailScaleLabel": {
+					"type": "text",
+					"left": 444,
+					"top": 452,
+					"width": 150,
+					"height": 16,
+					"text": "effective scale",
+					"class": "muted"
+				},
+				"detailDevice": {
+					"type": "text",
+					"left": 444,
+					"top": 472,
+					"width": 160,
+					"height": 18,
+					"text": "—",
+					"class": "caption"
+				},
+				"detailCaption": {
+					"type": "text",
+					"left": 444,
+					"top": 490,
+					"width": 160,
+					"height": 16,
+					"text": "",
+					"class": "muted"
+				},
+				"stat1Caption": {
+					"type": "text",
+					"left": 616,
+					"top": 398,
+					"width": 190,
+					"height": 16,
+					"text": "Native panel",
+					"class": "statCaption"
+				},
+				"stat1Value": {
+					"type": "text",
+					"left": 616,
+					"top": 416,
+					"width": 190,
+					"height": 22,
+					"text": "—",
+					"class": "statValue"
+				},
+				"stat2Caption": {
+					"type": "text",
+					"left": 816,
+					"top": 398,
+					"width": 224,
+					"height": 16,
+					"text": "UI size",
+					"class": "statCaption"
+				},
+				"stat2Value": {
+					"type": "text",
+					"left": 816,
+					"top": 416,
+					"width": 224,
+					"height": 22,
+					"text": "—",
+					"class": "statValue"
+				},
+				"stat3Caption": {
+					"type": "text",
+					"left": 616,
+					"top": 450,
+					"width": 190,
+					"height": 16,
+					"text": "Backing buffer",
+					"class": "statCaption"
+				},
+				"stat3Value": {
+					"type": "text",
+					"left": 616,
+					"top": 468,
+					"width": 190,
+					"height": 22,
+					"text": "—",
+					"class": "statValue"
+				},
+				"detailNote": {
+					"type": "input",
+					"left": 816,
+					"top": 448,
+					"width": 224,
+					"height": 64,
+					"dataSource": "Form.noteText",
+					"class": "note",
+					"multiline": "yes",
+					"wordwrap": "normal",
+					"scrollbarVertical": "automatic",
+					"events": [
+						"onDataChange"
+					],
+					"enterable": false,
+					"focusable": true,
+					"hideFocusRing": true,
+					"borderStyle": "none"
+				},
+				"probeTitle": {
+					"type": "text",
+					"left": 24,
+					"top": 600,
+					"width": 700,
+					"height": 20,
+					"text": "Error path — prelaunch target rejection",
+					"class": "section"
+				},
+				"btnProbe": {
+					"type": "button",
+					"left": 24,
+					"top": 624,
+					"width": 288,
+					"height": 32,
+					"text": "Probe the other platform target",
+					"style": "roundedBevel",
+					"class": "action",
+					"events": [
+						"onClick"
+					]
+				},
+				"probeView": {
+					"type": "input",
+					"left": 24,
+					"top": 664,
+					"width": 1032,
+					"height": 42,
+					"dataSource": "Form.probeText",
+					"class": "console",
+					"multiline": "yes",
+					"wordwrap": "normal",
+					"scrollbarVertical": "automatic",
+					"events": [
+						"onDataChange"
+					],
+					"enterable": false,
+					"focusable": true,
+					"hideFocusRing": true,
+					"borderStyle": "none"
+				},
+				"toast": {
+					"type": "text",
+					"left": 24,
+					"top": 712,
+					"width": 1032,
+					"height": 20,
+					"text": "",
+					"class": "toast"
+				}
+			}
+		}
+	]
+}

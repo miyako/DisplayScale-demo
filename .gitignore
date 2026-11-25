@@ -1,0 +1,8 @@
+.DS_Store
+Data/
+Data/data.4DD
+Data/data.Match
+userPreferences.*/
+Project/DerivedData/
+Components/*/Project/DerivedData/
+*~

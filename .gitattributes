@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.4DForm text eol=lf
+*.4dm text eol=lf
+*.4DCatalog text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.png binary
+*.4DD binary
+*.Match binary
