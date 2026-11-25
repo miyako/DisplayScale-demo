@@ -381,13 +381,17 @@
 					"borderStyle": "none"
 				},
 				"toast": {
-					"type": "text",
+					"type": "input",
 					"left": 24,
 					"top": 712,
 					"width": 1032,
 					"height": 20,
-					"text": "",
-					"class": "toast"
+					"dataSource": "Form.toast",
+					"class": "toast",
+					"enterable": false,
+					"focusable": true,
+					"hideFocusRing": true,
+					"borderStyle": "none"
 				}
 			}
 		}

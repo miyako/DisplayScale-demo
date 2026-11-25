@@ -7,14 +7,19 @@ component, not the component itself. Read `README.md` first, then
 ## Tooling
 
 `.agents/` is a submodule of [miyako/skills](https://github.com/miyako/skills)
-(branch `dist`): Agent Skills for 4D plus JSON schemas. It also ships small
-helper binaries under `tools/`:
+(branch `dist`): Agent Skills for 4D plus JSON schemas. The helper binaries used
+by the 4D skills live in `.agents/tools/` and are **not committed** here
+(`/tools/*` is ignored). Provision them with the `4dtools` skill, then copy or
+symlink the ones you need into `tools/`:
 
 ```sh
 # read-only checks used while developing this demo
 tools/4dlsp/tool4d-lsp-stdio validate --workspace Project/ Sources/Classes/DisplayScene.4dm
 tools/4dform/fourdform Project/Sources/Forms/MonitorBoard/form.4DForm -o /tmp/board.png
 ```
+
+If `tools/` is empty, the checks below are unavailable rather than failing:
+restore the binaries first.
 
 `fourdform` only renders static previews (web areas are placeholders); a real
 preview needs a running 4D. Regenerate both form PNGs in `docs/` when the form
@@ -30,6 +35,12 @@ layout changes.
 3. Numeric text going into SVG/HTML/labels uses `"###0"` / `"###0.0"` formats,
    never bare `"0"` / `"0.0"` (`docs/FINDINGS.md` §6).
 4. `Form` is data, `DisplayScene` is behaviour. Keep formatting in the class.
+   `bindForm()` is the only place that writes what the form shows:
+   * text objects are updated with `OBJECT SET TITLE(*; "name"; value)`;
+   * input objects are **bound** in the form JSON (`"dataSource": "Form.x"`) and
+     must be updated as `Form.x:=value`, not with `OBJECT SET TITLE` (which sets
+     a placeholder on an input). `logText`, `probeText`, `noteText` and `toast`
+     all follow the bound-input rule.
 5. Temporary `zzz_*` methods and smoke forms must not be committed. Delete them
    and `Project/DerivedData/` before committing.
 6. The three `cs.DisplayScale is unknown` LSP diagnostics are expected

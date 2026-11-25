@@ -148,6 +148,16 @@ not "fix" them by adding fake declarations.
   CONTENT(*; "Map"; html; "")` is the smallest working form.
 * **`open -n` racing an older 4D instance** produces `-10716 Object or
   Collection Expected` at class construction. Retry once no 4D process is alive.
+* **A handled `4DRT [15] "This operation is not compatible with the two
+  arguments"` error is raised while the board form loads.** It is raised inside
+  the On Load path (a temporary `ON ERR CALL` captured it at the HEAD revision
+  and after the input-binding fix alike) and 4D continues, so the form renders
+  normally. Treat it as background noise: do not "fix" it by moving
+  `WA SET PAGE CONTENT`, and do not use its presence to blame the demo code.
+* **`OBJECT SET TITLE` on an input object sets a placeholder, not a value.**
+  Display text that changes at runtime must go through a bound
+  `"dataSource": "Form.x"` and `Form.x:=value`; that is why the note and the
+  toast are inputs and not static text objects.
 * **Screenshots are not available** in this automation session (no screen
   recording permission), so the README uses static form renders from
   `fourdform` rather than captures of the live windows.

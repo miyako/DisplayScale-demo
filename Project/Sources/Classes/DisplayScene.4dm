@@ -117,7 +117,7 @@ Function bindForm()
 	OBJECT SET TITLE(*; "stat2Value"; $d.uiValue)
 	OBJECT SET TITLE(*; "stat3Caption"; $d.backingLabel)
 	OBJECT SET TITLE(*; "stat3Value"; $d.backingValue)
-	OBJECT SET TITLE(*; "detailNote"; $d.note)
+	Form.noteText:=$d.note
 	OBJECT SET TITLE(*; "statusText"; This._statusText())
 	$badge:=(This.value=Null) ? "no data" : (This.value.platform+" · protocol "+String(This.value.protocol)+" · cli "+This.versionText)
 	OBJECT SET TITLE(*; "platformBadge"; $badge)
@@ -199,7 +199,6 @@ Function _statusText()->$s : Text
 		return "Last query "+This.queriedAt+" · "+String(This.elapsedMs)+" ms · "+String(This.rows.length)+" monitor(s)"
 	End if
 	return "Query failed · "+String(This.lastError.code)
-	$s:=""
 
 Function _logText()->$text : Text
 	var $entries : Collection

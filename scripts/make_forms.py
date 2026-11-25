@@ -98,7 +98,8 @@ board_page = {
     "btnProbe": button("btnProbe", 24, 624, 288, 32, "Probe the other platform target"),
     "probeView": input_("probeView", 24, 664, 1032, 42, "Form.probeText", "console",
                         multiline=True, enterable=False, border="none"),
-    "toast": text("toast", 24, 712, 1032, 20, "", "toast"),
+    "toast": input_("toast", 24, 712, 1032, 20, "Form.toast", "toast",
+                    enterable=False, border="none"),
 }
 board = {
     "$4d": {"version": "1", "kind": "form"},
