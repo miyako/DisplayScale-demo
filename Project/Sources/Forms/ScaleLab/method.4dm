@@ -1,8 +1,6 @@
 // ScaleLab form method. The two platform formulas are recomputed on every
 // data change so the relationship between panel pixels, points and dpi is
 // visible while typing.
-#DECLARE($params : Object)
-
 Case of
 
 	: (FORM Event.code=On Load)

@@ -1,7 +1,5 @@
 // MonitorBoard form method. Every button and the list box are routed here so
 // the interactive surface is easy to follow: query, select, copy, probe, lab.
-#DECLARE($params : Object)
-
 Case of
 
 	: (FORM Event.code=On Load)

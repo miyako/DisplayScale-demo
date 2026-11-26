@@ -268,7 +268,7 @@ Function mapHTML()->$html : Text
 	$html+="<div class='head'><span><b>Desktop layout</b> · bounds in "+$unit+"</span><span>"+String(This.rows.length)+" display(s)</span></div>"
 	// Fit every monitor's bounds into the 628x248 area.
 	var $minX; $minY; $maxX; $maxY : Real
-	var $b : Object
+	var $b; $row_ref : Object
 	var $first : Boolean
 	$first:=True
 	For each ($row_ref; This.rows)

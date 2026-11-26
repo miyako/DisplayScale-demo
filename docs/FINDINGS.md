@@ -30,30 +30,39 @@ a release, which fails for local development (`PackageManager Dependency
 'DisplayScale' cannot be found`, or installs a package without the macOS CLI).
 `scripts/install-component.sh` refreshes the vendored copy instead.
 
-## 2. Headless `Compile project` segfaults on projects with forms
+## 2. `Compile project` on a form-bearing project: crash not reproducible
 
-Impact: CI-style compile validation of this demo is impossible in this
-environment. This is a blocker, not a warning.
+Earlier notes claimed headless `Compile project` segfaults on any project with a
+`Forms/` folder. That does **not** reproduce on the committed tree, and the
+compiler had in fact never been given the chance to report the demo's own
+errors (below). Retested 2026-11-26:
 
-Reproduced with:
+| Run | Result |
+| --- | --- |
+| tool4d 21.2 LTS (100694), `Compile project` in a startup method | exit 0, structured result |
+| tool4d 21R4 (100224), same | exit 0, structured result |
+| full 4D 21.2 LTS via LaunchServices, same | result written, no crash report |
+| `Compile project(File(...))` of a form-bearing target from a form-less harness (the `do_Compile` → `_Open` path of the old report) | exit 0, structured result |
+| same project, no forms / board only / lab only / both | exit 0 each, error count differs only by the form methods' errors |
+| malformed `Forms/`: empty dir, method-only dir, `{}` form, `pages: []`, invalid JSON, empty file, stray `.DS_Store`, minimal smoke form | exit 0 each, no crash |
 
-* 4D 21.2 LTS `Compile project` from `tooling/compiler` (project with forms)
-* tool4d 21R4 build 100224, same projects
-* full 4D.app, same result
+The old report (`4D-2026-11-25-210010.ips`, exit 139) faulted in
+`VFormList_json::_LoadFolder` ← `V4DDatabase_Library::_Open` ← `do_Compile`.
+It predates the first commit, so the likely trigger was a transient project
+state (a draft or `zzz_*` smoke form) that no longer exists. If it returns,
+bisect by deleting `Forms/<name>/` one at a time in a scratch copy.
 
-Exit status 139. Crash report:
-`4D-2026-11-25-210010.ips`, faulting thread
-`VFormList_json::_LoadFolder` ← `VFormList_json::_Load` ←
-`V4DDatabase_Library::_Open` ← `do_Compile`.
+Compile it like this (scratch copy, so no `DerivedData` lands in the repo):
 
-*Compiling the form-less component repository itself succeeds.* The difference
-is the presence of `Project/Sources/Forms/`, so it is a form-loading crash in
-this build, not a demo-specific mistake. Verify compile status on a 4D build
-where `Compile project` opens a form-bearing project successfully.
+```4d
+var $r : Object
+$r:=Compile project
+LOG EVENT(Into system standard outputs; JSON Stringify($r; *); Information message)
+```
 
-Mitigation for reviewers: open the project interactively (4D or tool4d with a
-startup method) and exercise the forms; do not treat a failed headless compile
-as a demo code error without the crash log above.
+The compiler's real findings, now fixed: `$row_ref` undeclared in
+`DisplayScene.mapHTML`, and `#DECLARE($params : Object)` on the two form methods
+(form methods take no parameters). `success` is `true` afterwards.
 
 ## 3. `cmake` is unavailable, so the CLI was built manually
 

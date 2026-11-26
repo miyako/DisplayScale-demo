@@ -61,8 +61,9 @@ layout changes.
 
 * Keep the display awake while querying (`caffeinate -u -t 30`), otherwise the
   CLI legitimately reports `NO_MONITORS` (`docs/FINDINGS.md` §4).
-* Headless `Compile project` currently crashes on form-bearing projects; do not
-  blame the demo code for that (`docs/FINDINGS.md` §2).
+* Compile in a scratch copy with a startup method calling `Compile project`
+  and expect `success: true` (`docs/FINDINGS.md` §2). The old "forms crash the
+  compiler" claim did not reproduce; treat any new crash as a bisect task.
 
 ## Updating the vendored component
 

@@ -99,8 +99,8 @@ Recorded on macOS 27.2.1 (arm64) with 4D 21.2 LTS build 100694:
   SVG map HTML, Scale Lab presets and formula labels, JSON copy, API log,
   cross-platform probe → `unsupported_architecture`.
 * *not run* — Windows host, Intel macOS, signed/universal CLI.
-* *blocked* — headless `Compile project` crashes on any project containing a
-  `Forms/` folder in this environment; see [docs/FINDINGS.md](docs/FINDINGS.md).
+* *passed* — headless `Compile project` (tool4d 21.2 and 21R4, full 4D):
+  `success: true`; see [docs/FINDINGS.md](docs/FINDINGS.md) §2.
 
 ## License
 
