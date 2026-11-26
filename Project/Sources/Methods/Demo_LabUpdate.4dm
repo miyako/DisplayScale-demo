@@ -8,12 +8,12 @@ var $platform : Text
 $platform:=Is macOS ? "macOS" : "Windows"
 
 If (Form.lab.pointsWidth>0)
-	$mac:=Form.lab.nativeWidth/Form.lab.pointsWidth*100
+	$mac:=(Form.lab.nativeWidth/Form.lab.pointsWidth)*100
 Else
 	$mac:=0
 End if
 If (Form.lab.dpi>0)
-	$win:=Form.lab.dpi/96*100
+	$win:=(Form.lab.dpi/96)*100
 Else
 	$win:=0
 End if

@@ -128,6 +128,29 @@ serialisation.
 Fix used here: use `"###0"` / `"###0.0"` (or no format at all) for numbers that
 are concatenated into HTML/SVG/labels.
 
+## 6b. 4D has no operator precedence: `This.selectedIndex=$i-1` crashes the map
+
+Impact: `DisplayScene.mapHTML` raised `This operation is not compatible with the
+two arguments.` (error 15) once per monitor, so the desktop map had text labels
+and **no rectangles**. It only fails at runtime: `validate`, `Compile project`
+(`success: true`) and the form load all pass.
+
+4D evaluates operators strictly left to right:
+
+```4d
+1+2*3                         // 9, not 7
+10+20/2                       // 15, not 20
+This.selectedIndex=$i-1       // (This.selectedIndex=$i)-1  → Boolean minus number → error 15
+20+(588-$spanX*$k)/2          // ((20+(588-$spanX))*$k)/2  → silently wrong layout
+```
+
+Where a wrong expression does not error it silently mis-draws, so the map
+geometry (`$x+$w/2`, the centring offsets, `$offX+(…)*$k`) was also wrong.
+Fix used here: parenthesise every mixed expression and compute the selection
+test once (`$sel:=(This.selectedIndex=($i-1))`). Verified by running
+`mapHTML()` interpreted: 0 errors, one `<rect>` per monitor, all coordinates
+inside the 628×248 area.
+
 ## 7. Source-component classes are invisible to the LSP analyzer
 
 `tool4d-lsp-stdio validate` reports:

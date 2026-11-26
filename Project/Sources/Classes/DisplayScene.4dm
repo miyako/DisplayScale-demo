@@ -303,26 +303,30 @@ Function mapHTML()->$html : Text
 	If (($availH/$spanY)<$k)
 		$k:=$availH/$spanY
 	End if
-	$offX:=20+(588-$spanX*$k)/2
-	$offY:=44+(172-$spanY*$k)/2
+	// 4D evaluates operators strictly left to right (1+2*3 is 9): every mixed
+	// expression below is parenthesised explicitly.
+	$offX:=20+((588-($spanX*$k))/2)
+	$offY:=44+((172-($spanY*$k))/2)
 	var $i : Integer
 	var $x; $y; $w; $h : Real
 	var $color; $label; $pct : Text
+	var $sel : Boolean
 	var $colors : Collection
 	$colors:=New collection("#5E5CE6"; "#30D158"; "#FF9F0A"; "#FF375F"; "#64D2FF")
 	$html+="<svg width='628' height='248' viewBox='0 0 628 248' xmlns='http://www.w3.org/2000/svg'>"
 	For ($i; 1; This.rows.length)
 		$b:=This.rows[$i-1].monitor.bounds
-		$x:=$offX+($b.left-$minX)*$k
-		$y:=$offY+($b.top-$minY)*$k
+		$x:=$offX+(($b.left-$minX)*$k)
+		$y:=$offY+(($b.top-$minY)*$k)
 		$w:=($b.right-$b.left)*$k
 		$h:=($b.bottom-$b.top)*$k
 		$color:=$colors[($i-1)%5]
 		$label:=This._shortDevice(This.rows[$i-1].device)
 		$pct:=String(Int(This.rows[$i-1].monitor.scalePercent+0.5))+"%"
-		$html+="<rect x='"+String($x; "###0.0")+"' y='"+String($y; "###0.0")+"' width='"+String($w; "###0.0")+"' height='"+String($h; "###0.0")+"' rx='10' fill='"+$color+"' fill-opacity='0."+((This.selectedIndex=$i-1) ? "95" : "68")+"' stroke='"+((This.selectedIndex=$i-1) ? "#0A84FF" : $color)+"' stroke-width='"+((This.selectedIndex=$i-1) ? "3" : "1")+"'/>"
-		$html+="<text x='"+String($x+$w/2; "###0.0")+"' y='"+String($y+$h/2-2; "###0.0")+"' text-anchor='middle' font-size='13' font-weight='600' fill='#FFFFFF'>"+$label+"</text>"
-		$html+="<text x='"+String($x+$w/2; "###0.0")+"' y='"+String($y+$h/2+14; "###0.0")+"' text-anchor='middle' font-size='11' fill='#FFFFFF' fill-opacity='0.92'>"+$pct+(This.rows[$i-1].monitor.primary ? " · primary" : "")+"</text>"
+		$sel:=(This.selectedIndex=($i-1))
+		$html+="<rect x='"+String($x; "###0.0")+"' y='"+String($y; "###0.0")+"' width='"+String($w; "###0.0")+"' height='"+String($h; "###0.0")+"' rx='10' fill='"+$color+"' fill-opacity='0."+($sel ? "95" : "68")+"' stroke='"+($sel ? "#0A84FF" : $color)+"' stroke-width='"+($sel ? "3" : "1")+"'/>"
+		$html+="<text x='"+String($x+($w/2); "###0.0")+"' y='"+String(($y+($h/2))-2; "###0.0")+"' text-anchor='middle' font-size='13' font-weight='600' fill='#FFFFFF'>"+$label+"</text>"
+		$html+="<text x='"+String($x+($w/2); "###0.0")+"' y='"+String(($y+($h/2))+14; "###0.0")+"' text-anchor='middle' font-size='11' fill='#FFFFFF' fill-opacity='0.92'>"+$pct+(This.rows[$i-1].monitor.primary ? " · primary" : "")+"</text>"
 	End for
 	$html+="</svg></body></html>"
 	return $html

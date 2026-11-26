@@ -43,7 +43,10 @@ layout changes.
      all follow the bound-input rule.
 5. Temporary `zzz_*` methods and smoke forms must not be committed. Delete them
    and `Project/DerivedData/` before committing.
-6. The three `cs.DisplayScale is unknown` LSP diagnostics are expected
+6. 4D has **no operator precedence** (`1+2*3` is 9). Parenthesise every
+   expression that mixes operators or comparisons with arithmetic
+   (`This.selectedIndex=($i-1)`, `$x+($w/2)`); see `docs/FINDINGS.md` §6b.
+7. The three `cs.DisplayScale is unknown` LSP diagnostics are expected
    (source-component class); runtime resolves them. Do not silence them with
    fake declarations.
 
